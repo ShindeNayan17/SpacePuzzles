@@ -17,7 +17,7 @@ func _ready():
 	pass
 
 func new_game():
-	get_tree().change_scene("res://board/board.tscn")
+	get_tree().change_scene("res://mainGameScreen/MainGameScreen.tscn")
 
 func load_menu():
 	get_tree().change_scene("res://menu/menu.tscn")

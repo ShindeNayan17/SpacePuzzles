@@ -9,14 +9,17 @@ load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 284.823, 226.097 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+SPEED = 200
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true

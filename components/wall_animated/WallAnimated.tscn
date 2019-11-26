@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://components/wall_animated/WallAnimated.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 6
+load_path = "res://.import/wall.png-5a1f2908d392899694c194f6f48e6341.stex"
+
+[node name="WallAnimated" type="StaticBody2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+orientation = "vertical"
+length = 2048.0
+
+[node name="WallSprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+region_enabled = true
+region_rect = Rect2( -8, -1024, 16, 2048 )
+
+[node name="WallShape" type="CollisionShape2D" parent="."]

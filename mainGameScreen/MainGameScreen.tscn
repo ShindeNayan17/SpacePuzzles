@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://components/waill_simple/WallSimple.tscn" type="PackedScene" id=1]
-[ext_resource path="res://components/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/level_handler/LevelHandler.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/player/Player.tscn" type="PackedScene" id=3]
 
 [node name="MainGameScreen" type="Node2D"]
 
@@ -21,5 +22,8 @@ orientation = "horizontal"
 color = Color( 0.329412, 0.752941, 0.337255, 1 )
 length = 600.0
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="LevelHandler" parent="." instance=ExtResource( 2 )]
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 200, 500 )
+SPEED = 20

@@ -22,7 +22,6 @@ config/icon="res://icon.png"
 [autoload]
 
 global="*res://autoload/global.gd"
-logger="*res://autoload/logger.gd"
 
 [display]
 

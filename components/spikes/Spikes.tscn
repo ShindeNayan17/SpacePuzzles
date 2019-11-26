@@ -1,3 +1,26 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="Spikes" type="Node2D"]
+[ext_resource path="res://components/spikes/Spikes.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 6
+load_path = "res://.import/spike.png-802635bcff22a13b6c60c111b8f6e3f9.stex"
+
+[node name="Spikes" type="StaticBody2D"]
+position = Vector2( 280.841, 272.908 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+orientation = "horizontal"
+inverted = true
+width = 128.0
+length = 16.0
+
+[node name="SpikesSprite" type="Sprite" parent="."]
+rotation = 4.71239
+texture = SubResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 128 )
+
+[node name="SpikesShape" type="CollisionShape2D" parent="."]

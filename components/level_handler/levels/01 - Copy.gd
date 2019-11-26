@@ -11,37 +11,43 @@ const walL2 = ["wallSimple" ,1,"left"];
 const walL3 = ["wallSimple" ,1,"left"];
 const walL4 = ["wallSimple" ,1,"left"];
 const brick = ["wallAnimated" ,1,"left"];
-const spikeTop = ["Spikes" ,1,"top"];
+const spike = ["spike" ,1,"left"];
+#var level = new Image();
+const mapper = {
+	"000": blk,
+	}
 
-const v = {
-	0: blk,
-	1: walL,
-	2: walL2,
-	3: walL3,
-	4: walL4,
-	5: brick,
-	6: spikeTop
-}
+func getBlock(color): 
+	print("color ", color);
+	return spike;
+	if color == "000":
+		return blk;
+	if color == "25500":
+		return spike;
+	print("color not found", color);
+	return blk;
 
+var cell = [ blk, walL, walL2, walL3, walL4, brick, spike ];
 func init_level(level_node):
-
-	var vectorArray = [
-	[v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6]],
-	# offset , each backet 16px 
-	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],
-
-	#[v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0]],
-	#[v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6]],
-	[]
-	
-	]
+	var levelData = level01.get_data();
+	var size = levelData.get_size();
+	var width = size.x;
+	var length = size.y;
+	print("length",length," width ",  width);
 	
 	
 	
-	for i in range(vectorArray.size()):
-		var aRow = vectorArray[i];
-		for j in range(aRow.size()) :
-			var aBlock = aRow[j];
+	
+	
+	for i in range(length):
+		#var aRow = vectorArray[i];
+		for j in range(width) :
+			
+			var position = levelData.get_pixel(j, i);
+			print("position", "(" , j,", ", i , ")");
+			var color = position.to_html(false);
+			
+			var aBlock = getBlock(color);
 			var xOffset = j*blockWidth;
 			var yOffset = i*blockHeight;
 			
@@ -53,9 +59,7 @@ func init_level(level_node):
 				block.set_width(blockWidth);
 				block.set_length(blockHeight * noOfBlocks);
 				block.set_color("#ff0000");
-#				print("x, yoffset ", xOffset, yOffset );
 				block.position = Vector2(xOffset, yOffset)
-				#print("block pos", block.position, xOffset, yOffset);
 				level_node.add_child(block);
 				pass;
 			
@@ -70,23 +74,21 @@ func init_level(level_node):
 				#print("block pos", block.position, xOffset, yOffset);
 				level_node.add_child(block);
 				pass;
-			if aBlock[0] == "Spikes":
+				
+			
+			if aBlock[0] == "spike":
 				var block = spikes.instance();
 				var noOfBlocks = aBlock[1];
 				block.set_width(blockWidth);
 				block.set_length(blockHeight * noOfBlocks);
-				var direction = aBlock[2];
-				if direction == "top":
-					block.set_orientation("horizontal");
-					block.set_invert(false);
-					pass;
 				#block.set_color("#ff0000");
 #				print("x, yoffset ", xOffset, yOffset );
 				block.position = Vector2(xOffset, yOffset)
 				#print("block pos", block.position, xOffset, yOffset);
 				level_node.add_child(block);
 				pass;
-			
+				
+				
 		
 		
 #		

@@ -23,7 +23,9 @@ color = Color( 0.329412, 0.752941, 0.337255, 1 )
 length = 600.0
 
 [node name="LevelHandler" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -2400 )
+scale = Vector2( 2, 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 200, 500 )
+position = Vector2( 148.197, 741.749 )
 SPEED = 20

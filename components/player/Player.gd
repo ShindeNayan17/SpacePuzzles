@@ -99,7 +99,12 @@ func _physics_processsss(delta):
 
 func _draw():
 	if(!isPlayerMoving):
+		# check if line exceeds length limit magnitude to limit range
+		#var mousePos = get_local_mouse_position();
+		#var magnitude = sqrt(mousePos.x*mousePos.x + mousePos.y*mousePos.y);
+		#print("magnitude", magnitude);
 		draw_line(Vector2(0,0), get_local_mouse_position(), Color(1,1,1));
+		
 	#drawLine();
 func drawLine():
 	#var playerPos = $"Player".get_position_in_parent();

@@ -6,12 +6,20 @@ var bonus_texture #dictionary of bonus textures
 var bonus_effect #dictionary of bonus effects
 var bonus_message #dictionary of bonus messages
 
+const PLAYER_DEFAULT_LIVES = 5;
+
+var player_init_position = Vector2(100,760);
+
+var current_level = "01";
 #constants
 const BRICK_WIDTH = 86
 const BRICK_HEIGHT = 37
 const INITIAL_PADDLE_WIDTH = 100
 const PADDLE_HEIGHT=15
 const MAX_LEVEL = 2
+
+
+
 
 func _ready():
 	pass

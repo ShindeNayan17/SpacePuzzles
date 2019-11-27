@@ -23,6 +23,8 @@ const v = {
 	6: spikeTop
 }
 
+func addMovingEntities(level_node):
+	pass;
 func init_level(level_node):
 
 	var vectorArray = [
@@ -89,6 +91,7 @@ func init_level(level_node):
 			
 		
 		
+	self.addMovingEntities(level_node);
 #		
 
 #	var brick_array = { #FOR TESTS

@@ -1,14 +1,21 @@
 extends Node2D
 
+
 func _init():
-	load_level("01");
+	load_level(global.current_level);
 
 var total_bricks setget set_total_bricks, get_total_bricks
 var lb
 
+func resetLevel():
+	for i in range (get_child_count()):
+		#if(is Moving entity) get_child(i).queue_free()
+		pass;
+	lb.addMovingEntities(self);
+	
+	pass;
 func load_level(level):
 	var path = "res://components/level_handler/levels/"+str(level)+".gd";
-	print(path);
 	var level_builder=load("res://components/level_handler/levels/"+str(level)+".gd");
 	lb = level_builder.new();
 	

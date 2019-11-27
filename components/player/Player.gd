@@ -4,7 +4,10 @@ var direction = Vector2(-1,0);
 const FLOOR_NORMAL = Vector2(0, -1)
 const SLOPE_SLIDE_STOP = 25.0
 
-
+signal player_killed;
+signal restart_level;
+const HP_MAX = 5;
+var hp = global.PLAYER_DEFAULT_LIVES;
 export (int) var SPEED
 export (int) var JUMP_SPEED
 
@@ -14,19 +17,40 @@ var screensize
 var mousePosition = Vector2();
 
 func _ready():
-	screensize = get_viewport_rect().size
+	screensize = get_viewport_rect().size;
+	resetPlayer();
 	pass
+	
+func resetPlayer():
+	self.hide();
+	self.position = global.player_init_position;
+	hp = global.PLAYER_DEFAULT_LIVES;
+	
+	self.velocity = Vector2(0,0);
+	direction = Vector2(0,1);
+	self.show();
+
+func handleCollision(collision_info):
+	var collider = collision_info.collider;
+	if collider.has_method("damage"):
+		collider.damage(self);
+	pass;
+	
 func _physics_process(delta):
 	
 	var collision_info  = self.move_and_collide(direction * SPEED);
 	if collision_info:
+#		take_damage
+		
+		
 		if (isPlayerMoving): isPlayerMoving = false;
-		print("collided, player idle");
+		handleCollision(collision_info);
+		#print("collided, player idle");
 		
 		pass;
 	else:
 		if (!isPlayerMoving): isPlayerMoving = true;
-		print("player in motion");
+		#print("player in motion");
 	
 
 	
@@ -112,3 +136,36 @@ func _input(event):
 func get_rot():
 	
 	return 
+
+func add_hp(health):
+	pass;
+func take_damage_percent(impact): # damage in percent
+    impact = clamp(impact, 0.0, 1.0)
+    var damage = HP_MAX * impact;
+    var prev_hp = hp;
+    hp -= damage
+    hp = clamp(hp, 0, HP_MAX)
+
+    if prev_hp != hp:
+        emit_signal("damaged", damage)
+
+    if hp <= 0.0:
+        emit_signal("killed")
+
+func take_damage(damage):
+	var prev_hp = hp;
+	hp -= damage
+	hp = clamp(hp, 0, HP_MAX)
+	if prev_hp != hp:
+		pass;
+		#emit_signal("player_damaged", damage)
+	if hp <= 0.0:
+#		pass;
+		emit_signal("player_killed")
+
+func _on_Player_player_killed():
+	# self.queue_free();
+	
+	
+	emit_signal("restart_level");
+	pass # Replace with function body.

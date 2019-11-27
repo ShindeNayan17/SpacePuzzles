@@ -21,7 +21,9 @@ func _ready():
 		inverted=false;
 	update_wall()
 
-
+func damage(entity):
+	entity.take_damage(99999);
+	pass;
 
 func update_wall():
 	if !get_shape_owners().empty(): # the function can be called before the shape owner is created

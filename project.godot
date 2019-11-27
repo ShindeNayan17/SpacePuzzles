@@ -25,8 +25,9 @@ global="*res://autoload/global.gd"
 
 [display]
 
-window/size/width=600
+window/size/width=640
 window/size/height=800
+window/size/resizable=false
 
 [input]
 

@@ -5,6 +5,8 @@ extends StaticBody2D
 # it adjusts its collision shape accordingly
 
 export (String, "horizontal","vertical") var orientation setget set_orientation
+export (bool) var inverted setget set_invert
+
 #export (Color, RGBA) var color setget set_color
 export (float) var width=16 setget set_width
 export (float) var length=64 setget set_length
@@ -14,18 +16,31 @@ var shape_owner
 func _ready():
 	if orientation==null:
 		orientation="horizontal"
+	
+	if inverted==null:
+		inverted=false;
 	update_wall()
 
-
+func damage(entity):
+	#entity.take_damage(99999);
+	pass;
 
 func update_wall():
 	if !get_shape_owners().empty(): # the function can be called before the shape owner is created
 		var spriteRect;
-		if(orientation=="horizontal"):
-			spriteRect = Rect2(-length/2,-width/2,length,width);
+		var angleDegree = 0;
+		if inverted:
+			angleDegree = 180;
 		else:
-			spriteRect = Rect2(-width/2,-length/2,width,length);
+			angleDegree = 0;
+		if(orientation=="horizontal"):
+			angleDegree += 90;
+			spriteRect = Rect2(0,0,length,width);
+		else:
+			spriteRect = Rect2(0,0,width,length);
 		$"WallSprite".region_rect =spriteRect;
+		$"WallSprite".rotation_degrees = angleDegree;
+		
 		# var aSprite = Sprite.new();
 		
 		
@@ -41,14 +56,14 @@ func update_wall():
 #		update()
 
 
-func _draw():
-	var r
-	if(orientation=="horizontal"):
-		
-		r = Rect2(-length/2,-width/2,length,width)
-	else:
-		r = Rect2(-width/2,-length/2,width,length)
-	#draw_rect(r,color)
+#func _draw():
+#	var r
+#	if(orientation=="horizontal"):
+#
+#		r = Rect2(-length/2,-width/2,length,width)
+#	else:
+#		r = Rect2(-width/2,-length/2,width,length)
+#	#draw_rect(r,color)
 
 
 func set_orientation(o):
@@ -66,3 +81,7 @@ func set_width(w):
 func set_length(l):
 	length=l
 	update_wall()
+	
+func set_invert(flag):
+	inverted=flag;
+	update_wall();

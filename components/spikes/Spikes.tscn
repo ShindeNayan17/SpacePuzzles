@@ -3,8 +3,8 @@
 [ext_resource path="res://components/spikes/Spikes.gd" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=1]
-flags = 6
-load_path = "res://.import/spike.png-802635bcff22a13b6c60c111b8f6e3f9.stex"
+flags = 4
+load_path = "res://.import/platformPack_tile043.png-2e3311f1f69a25c90400c5db61a4a7ff.stex"
 
 [node name="Spikes" type="StaticBody2D"]
 script = ExtResource( 1 )
@@ -12,11 +12,12 @@ __meta__ = {
 "_edit_group_": true
 }
 orientation = "vertical"
+width = 16.0
 length = 16.0
 
 [node name="SpikesSprite" type="Sprite" parent="."]
 texture = SubResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 16, 16 )
+region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="SpikesShape" type="CollisionShape2D" parent="."]

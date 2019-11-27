@@ -3,21 +3,22 @@ extends "res://components/level_handler/levelAssets.gd"
 #autoload singletons
 # global
 
-const blockWidth = 16;
-const blockHeight = 16;
+const blockWidth = 64;
+const blockHeight = 64;
 const blk = ["blank" ,0,"left"]; # type, length, direction (top, down, left, right)
-const walL = ["wallSimple" ,1,"left"]; # type, length, direction (top, down, left, right)
-const walL2 = ["wallSimple" ,1,"left"];
-const walL3 = ["wallSimple" ,1,"left"];
+const wall = ["wallAnimated" ,1,"left"]; # type, length, direction (top, down, left, right)
+const doorStart = ["doorVertical" ,2,"start"];
+const doorEnd = ["doorVertical",2,"end"];
 const walL4 = ["wallSimple" ,1,"left"];
 const brick = ["wallAnimated" ,1,"left"];
-const spikeTop = ["Spikes" ,1,"top"];
+const spikeTop = ["Spikes" ,1,"bottom", true];
+
 
 const v = {
 	0: blk,
-	1: walL,
-	2: walL2,
-	3: walL3,
+	1: wall,
+	2: doorStart,
+	3: doorEnd,
 	4: walL4,
 	5: brick,
 	6: spikeTop
@@ -26,15 +27,58 @@ const v = {
 func addMovingEntities(level_node):
 	pass;
 func init_level(level_node):
-
 	var vectorArray = [
-	[v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6]],
-	# offset , each backet 16px 
-	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],	[],
-
-	#[v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0]],
-	#[v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6]],
-	[]
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
+	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	
 	]
 	
@@ -60,7 +104,10 @@ func init_level(level_node):
 				#print("block pos", block.position, xOffset, yOffset);
 				level_node.add_child(block);
 				pass;
-			
+			if aBlock[0] == "doorVertical":
+				var block = doorVertical.instance();
+				
+				
 			if aBlock[0] == "wallAnimated":
 				var block = wallAnimated.instance();
 				var noOfBlocks = aBlock[1];
@@ -80,8 +127,10 @@ func init_level(level_node):
 				var direction = aBlock[2];
 				if direction == "top":
 					block.set_orientation("horizontal");
-					block.set_invert(false);
+					
 					pass;
+				var isInvert = aBlock[3];
+				block.set_invert(isInvert);
 				#block.set_color("#ff0000");
 #				print("x, yoffset ", xOffset, yOffset );
 				block.position = Vector2(xOffset, yOffset)

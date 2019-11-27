@@ -8,7 +8,7 @@ export (String, "horizontal","vertical") var orientation setget set_orientation
 export (bool) var inverted setget set_invert
 
 #export (Color, RGBA) var color setget set_color
-export (float) var width=16 setget set_width
+export (float) var width=64 setget set_width
 export (float) var length=64 setget set_length
 
 var shape_owner

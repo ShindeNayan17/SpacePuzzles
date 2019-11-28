@@ -13,7 +13,7 @@ func _init():
 	wallSimple = load("res://components/waill_simple/WallSimple.tscn");	
 	wallAnimated = load("res://components/wall_animated/WallAnimated.tscn");
 	spikes = load ("res://components/spikes/Spikes.tscn");
-	doorVertical = load ("res://components/spikes/Spikes.tscn");
+	doorVertical = load ("res://components/doorVertical/DoorVertical.tscn");
 	
 
 

@@ -38,5 +38,5 @@ length = 616.0
 position = Vector2( 32, -2400 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 105.297, 759.699 )
+position = Vector2( 165.685, 755.803 )
 SPEED = 20

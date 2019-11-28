@@ -21,7 +21,7 @@ func _ready():
 		inverted=false;
 	update_wall()
 
-func damage(entity):
+func collide(entity):
 	entity.take_damage(99999);
 	pass;
 

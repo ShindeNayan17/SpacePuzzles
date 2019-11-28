@@ -7,8 +7,10 @@ const blockWidth = 64;
 const blockHeight = 64;
 const blk = ["blank" ,0,"left"]; # type, length, direction (top, down, left, right)
 const wall = ["wallAnimated" ,1,"left"]; # type, length, direction (top, down, left, right)
-const doorStart = ["doorVertical" ,2,"start"];
-const doorEnd = ["doorVertical",2,"end"];
+const doorStartTop = ["doorVertical" ,2,"start", "top"];
+const doorStartBottom = ["doorVertical" ,2,"start", "bottom"];
+const doorEndTop = ["doorVertical",2, "end" ,"top"];
+const doorEndBottom = ["doorVertical",2, "end" ,"bottom"];
 const walL4 = ["wallSimple" ,1,"left"];
 const brick = ["wallAnimated" ,1,"left"];
 const spikeTop = ["Spikes" ,1,"bottom", true];
@@ -17,10 +19,10 @@ const spikeTop = ["Spikes" ,1,"bottom", true];
 const v = {
 	0: blk,
 	1: wall,
-	2: doorStart,
-	3: doorEnd,
-	4: walL4,
-	5: brick,
+	2: doorStartTop,
+	3: doorStartBottom,
+	4: doorEndTop,
+	5: doorEndBottom,
 	6: spikeTop
 }
 
@@ -30,6 +32,9 @@ func init_level(level_node):
 	var vectorArray = [
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[1], v[1], v[1], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -73,11 +78,8 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	
 	]
@@ -106,6 +108,21 @@ func init_level(level_node):
 				pass;
 			if aBlock[0] == "doorVertical":
 				var block = doorVertical.instance();
+				var noOfBlocks = aBlock[1];
+				var doorAction = aBlock[2];
+				var doorPart = aBlock[3];
+				print("doorPart", doorPart);
+				block.set_doorParts(doorPart);
+				block.set_doorAction(doorAction);
+				#var blockNode = block.get_node("DoorVertical");
+				#blockNode.connect
+				block.position = Vector2(xOffset, yOffset);
+				block.set_enableEvents(true);
+				block.connect("doorEntered", level_node, "handleLevelEvents");
+				level_node.add_child(block);
+				
+				
+				
 				
 				
 			if aBlock[0] == "wallAnimated":
@@ -143,6 +160,7 @@ func init_level(level_node):
 	self.addMovingEntities(level_node);
 #		
 
+
 #	var brick_array = { #FOR TESTS
 #		0:[0,0,0,0,0,0,0,0,0,0,0],
 #		1:[0,0,0,0,0,0,0,0,0,0,0],
@@ -173,3 +191,16 @@ func init_level(level_node):
 #				total_bricks += 1
 #
 #	return total_bricks
+func handleEvents(level_node, type, params):
+	if type == "doorVertical":
+		var action = params;
+		if action == "start":
+			print("exec level start");
+			#do nothing
+#			print("exec start");
+			pass;
+		if action == "end":
+			print("exec level end");
+			level_node.level_complete();
+			pass;
+		

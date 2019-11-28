@@ -32,12 +32,12 @@ func resetPlayer():
 
 func handleCollision(collision_info):
 	var collider = collision_info.collider;
-	if collider.has_method("damage"):
-		collider.damage(self);
+	if collider.has_method("collide"):
+		collider.collide(self);
 	pass;
 	
 func _physics_process(delta):
-	
+	if (global.level_pause): return;
 	var collision_info  = self.move_and_collide(direction * SPEED);
 	if collision_info:
 #		take_damage

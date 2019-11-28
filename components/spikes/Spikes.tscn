@@ -16,8 +16,9 @@ width = 16.0
 length = 16.0
 
 [node name="SpikesSprite" type="Sprite" parent="."]
+position = Vector2( 0, -2 )
 texture = SubResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 64, 64 )
+region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="SpikesShape" type="CollisionShape2D" parent="."]

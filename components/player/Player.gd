@@ -15,6 +15,7 @@ var isPlayerMoving = false;
 var velocity = Vector2()
 var screensize
 var mousePosition = Vector2();
+var playerAngle = 0;
 
 func _ready():
 	screensize = get_viewport_rect().size;
@@ -39,6 +40,7 @@ func handleCollision(collision_info):
 func _physics_process(delta):
 	if (global.level_pause): return;
 	var collision_info  = self.move_and_collide(direction * SPEED);
+	rotate_player(delta);
 	if collision_info:
 #		take_damage
 		
@@ -99,11 +101,14 @@ func _physics_processsss(delta):
 
 func _draw():
 	if(!isPlayerMoving):
-		# check if line exceeds length limit magnitude to limit range
-		#var mousePos = get_local_mouse_position();
-		#var magnitude = sqrt(mousePos.x*mousePos.x + mousePos.y*mousePos.y);
-		#print("magnitude", magnitude);
-		draw_line(Vector2(0,0), get_local_mouse_position(), Color(1,1,1));
+		var currentMouseDirection = get_local_mouse_position().normalized();
+		$"playerRay".set_cast_to(currentMouseDirection*100000);
+		if ($"playerRay".is_colliding()):
+			
+			var newPoint = $"playerRay".get_collision_point();
+			var playerPosition = self.position;
+			var relativeNewPoint = newPoint - playerPosition;
+			draw_line(Vector2(0,0), relativeNewPoint, Color(1,1,1));
 		
 	#drawLine();
 func drawLine():
@@ -141,6 +146,32 @@ func _input(event):
 func get_rot():
 	
 	return 
+
+func rotate_player(delta):
+	var normalAngle = $"playerRay".get_collision_normal();
+	if playerAngle != direction.angle():
+		playerAngle = direction.angle();
+	if($"playerRay".is_colliding()):
+		
+		#print("angle", normalAngle);
+		$"Sprite".rotation = normalAngle.angle();
+#	
+		var aimPointer = get_local_mouse_position();
+		
+	#$"playerRay".set_cast_to();
+	#$"playerRay".update();
+	
+#	if playerAngle != direction.angle():
+#		playerAngle = direction.angle();
+#	var selfPosition = self.position;
+	#selfPosition += PI/2;
+#	var spritePos = $"Sprite"
+	#print("angle ",direction.angle());
+	
+	#$"Sprite".rotate( selfPosition.angle_to_point(direction));
+#	 = playerAngle + PI;
+	
+
 
 func add_hp(health):
 	pass;

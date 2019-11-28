@@ -7,6 +7,8 @@ var wallSimple;
 var wallAnimated;
 var spikes;
 var doorVertical;
+var portal_p;
+var portal_g;
 #var level01 = preload("res://textures/levels/01.png");
 
 func _init():
@@ -14,6 +16,9 @@ func _init():
 	wallAnimated = load("res://components/wall_animated/WallAnimated.tscn");
 	spikes = load ("res://components/spikes/Spikes.tscn");
 	doorVertical = load ("res://components/doorVertical/DoorVertical.tscn");
+	portal_p = load ("res://components/portal_p/Portal_p.tscn");
+	portal_g = load ("res://components/portal_g/Portal_g.tscn");
+	
 	
 
 

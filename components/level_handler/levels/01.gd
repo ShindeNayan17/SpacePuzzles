@@ -14,6 +14,8 @@ const doorEndBottom = ["doorVertical",2, "end" ,"bottom"];
 const walL4 = ["wallSimple" ,1,"left"];
 const brick = ["wallAnimated" ,1,"left"];
 const spikeTop = ["Spikes" ,1,"bottom", true];
+const portalStart = ["Portal_p" ,1];
+const portalEnd = ["Portal_g" ,1];
 
 
 const v = {
@@ -23,7 +25,9 @@ const v = {
 	3: doorStartBottom,
 	4: doorEndTop,
 	5: doorEndBottom,
-	6: spikeTop
+	6: spikeTop,
+	7: portalStart,
+	8: portalEnd
 }
 
 func addMovingEntities(level_node):
@@ -32,8 +36,8 @@ func init_level(level_node):
 	var vectorArray = [
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[1], v[1], v[1], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -42,10 +46,10 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -155,6 +159,21 @@ func init_level(level_node):
 				level_node.add_child(block);
 				pass;
 			
+			if aBlock[0] == "Portal_p":
+				var block = portal_p.instance();
+				var noOfBlocks = aBlock[1];
+				var offset = block.getPositionOffset("left");
+				block.position = Vector2(xOffset, yOffset) + offset;
+				level_node.add_child(block);
+				pass;
+			
+			if aBlock[0] == "Portal_g":
+				var block = portal_g.instance();
+				var noOfBlocks = aBlock[1];
+				var offset = block.getPositionOffset("left");
+				block.position = Vector2(xOffset, yOffset) + offset;
+				level_node.add_child(block);
+				pass;
 		
 		
 	self.addMovingEntities(level_node);

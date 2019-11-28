@@ -47,6 +47,7 @@ func _physics_process(delta):
 		
 		if (isPlayerMoving): isPlayerMoving = false;
 		handleCollision(collision_info);
+		update();
 		#print("collided, player idle");
 		
 		pass;
@@ -114,8 +115,8 @@ func _draw():
 		
 	#drawLine();
 func createLine(from, to):
-  $"playerLine".add_point(from)
-  $"playerLine".add_point(to)
+	$"playerLine".add_point(from)
+	$"playerLine".add_point(to)
 
 func removeLine():
   $"playerLine".points = []
@@ -133,10 +134,13 @@ func _input(event):
 	
 	# Mouse in viewport coordinates
 	if event is InputEventMouseButton:
-		direction = get_local_mouse_position().normalized();
-		lineCollidingPointNormal = $"playerRay".get_collision_normal();
-		
-		removeLine();
+		print("mouse event");
+		var mouseReleased = !event.is_pressed();
+		var clickType = event.get_button_index()
+		if (!isPlayerMoving && mouseReleased && clickType == BUTTON_LEFT ):
+			direction = get_local_mouse_position().normalized();
+			lineCollidingPointNormal = $"playerRay".get_collision_normal();
+			removeLine();
 		pass;
 		#print("Mouse Click/Unclick at: ", event.position)
 	elif event is InputEventMouseMotion:

@@ -16,7 +16,7 @@ var velocity = Vector2()
 var screensize
 var mousePosition = Vector2();
 var playerAngle = 0;
-
+var lineCollidingPointNormal = Vector2();
 func _ready():
 	screensize = get_viewport_rect().size;
 	resetPlayer();
@@ -104,13 +104,21 @@ func _draw():
 		var currentMouseDirection = get_local_mouse_position().normalized();
 		$"playerRay".set_cast_to(currentMouseDirection*100000);
 		if ($"playerRay".is_colliding()):
-			
 			var newPoint = $"playerRay".get_collision_point();
 			var playerPosition = self.position;
 			var relativeNewPoint = newPoint - playerPosition;
-			draw_line(Vector2(0,0), relativeNewPoint, Color(1,1,1));
+			removeLine();
+			createLine(Vector2(0,0), relativeNewPoint);
+			
+			#draw_line(Vector2(0,0), relativeNewPoint, Color(1,1,1));
 		
 	#drawLine();
+func createLine(from, to):
+  $"playerLine".add_point(from)
+  $"playerLine".add_point(to)
+
+func removeLine():
+  $"playerLine".points = []
 func drawLine():
 	#var playerPos = $"Player".get_position_in_parent();
 	#print("playerPos", playerPos);
@@ -125,10 +133,10 @@ func _input(event):
 	
 	# Mouse in viewport coordinates
 	if event is InputEventMouseButton:
-		var currentMousePosition = get_local_mouse_position();
+		direction = get_local_mouse_position().normalized();
+		lineCollidingPointNormal = $"playerRay".get_collision_normal();
 		
-		var magnitude = sqrt(currentMousePosition.x*currentMousePosition.x + currentMousePosition.y*currentMousePosition.y);
-		direction = Vector2(currentMousePosition.x/magnitude,currentMousePosition.y/magnitude);
+		removeLine();
 		pass;
 		#print("Mouse Click/Unclick at: ", event.position)
 	elif event is InputEventMouseMotion:
@@ -148,15 +156,15 @@ func get_rot():
 	return 
 
 func rotate_player(delta):
-	var normalAngle = $"playerRay".get_collision_normal();
 	if playerAngle != direction.angle():
 		playerAngle = direction.angle();
-	if($"playerRay".is_colliding()):
+		
+		$"Sprite".rotation = lineCollidingPointNormal.angle() + PI/2;
 		
 		#print("angle", normalAngle);
-		$"Sprite".rotation = normalAngle.angle();
+		#$"Sprite".rotation = normalAngle.angle();
 #	
-		var aimPointer = get_local_mouse_position();
+		#var aimPointer = get_local_mouse_position();
 		
 	#$"playerRay".set_cast_to();
 	#$"playerRay".update();

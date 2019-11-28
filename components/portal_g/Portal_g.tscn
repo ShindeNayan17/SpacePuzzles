@@ -59,9 +59,10 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="PortalSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -8 )
-scale = Vector2( 2, 2 )
+position = Vector2( 0, -16 )
+scale = Vector2( 4, 4 )
 frames = SubResource( 2 )
 animation = "PortalIdle_g"
-frame = 2
+frame = 7
 playing = true
+[connection signal="body_entered" from="." to="." method="_on_Portal_body_entered"]

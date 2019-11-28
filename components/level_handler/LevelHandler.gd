@@ -1,12 +1,13 @@
 extends Node2D
 
-
+signal levelSignal;
 func _init():
 	load_level(global.current_level);
 
 var total_bricks setget set_total_bricks, get_total_bricks
 
 var lb
+
 
 func handleLevelEvents(eventType, payload):
 	lb.handleEvents(self, eventType, payload);

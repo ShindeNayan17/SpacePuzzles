@@ -14,8 +14,10 @@ const doorEndBottom = ["doorVertical",2, "end" ,"bottom"];
 const walL4 = ["wallSimple" ,1,"left"];
 const brick = ["wallAnimated" ,1,"left"];
 const spikeTop = ["Spikes" ,1,"bottom", true];
-const portalStart = ["Portal_p" ,1];
-const portalEnd = ["Portal_g" ,1];
+const portalStartL = ["Portal_p" ,1, "left"];
+const portalEndL = ["Portal_g" ,1, "left"];
+const portalStartR = ["Portal_p" ,1, "right"];
+const portalEndR = ["Portal_g" ,1, "right"];
 
 
 const v = {
@@ -26,11 +28,103 @@ const v = {
 	4: doorEndTop,
 	5: doorEndBottom,
 	6: spikeTop,
-	7: portalStart,
-	8: portalEnd
+	7: portalStartL,
+	8: portalEndL,
+	9: portalStartR,
+	10: portalEndR
 }
 
 func addMovingEntities(level_node):
+	var vectorArray = [
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
+	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[1], v[1], v[1], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[10], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
+	
+	]
+	
+	
+	
+	for i in range(vectorArray.size()):
+		var aRow = vectorArray[i];
+		for j in range(aRow.size()) :
+			var aBlock = aRow[j];
+			var xOffset = j*blockWidth;
+			var yOffset = i*blockHeight;
+			
+			if aBlock[0] == "blank":
+				pass;
+			
+			if aBlock[0] == "Portal_p":
+				var block = portal_p.instance();
+				var noOfBlocks = aBlock[1];
+				var offset = block.getPositionOffset(aBlock[2]);
+				block.position = Vector2(xOffset, yOffset) + offset;
+				block.connect("portalEntered", level_node, "handleLevelEvents");
+				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				level_node.add_child(block);
+				pass;
+			
+			if aBlock[0] == "Portal_g":
+				var block = portal_g.instance();
+				var noOfBlocks = aBlock[1];
+				var offset = block.getPositionOffset(aBlock[2]);
+				block.position = Vector2(xOffset, yOffset) + offset;
+				block.connect("portalEntered", level_node, "handleLevelEvents");
+				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				level_node.add_child(block);
+				pass;
+		
+		
+#		
+
 	pass;
 func init_level(level_node):
 	var vectorArray = [
@@ -46,10 +140,10 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -123,6 +217,7 @@ func init_level(level_node):
 				block.position = Vector2(xOffset, yOffset);
 				block.set_enableEvents(true);
 				block.connect("doorEntered", level_node, "handleLevelEvents");
+				level_node.connect("doorEntered", block, "_on_Portal_body_received");
 				level_node.add_child(block);
 				
 				
@@ -170,7 +265,7 @@ func init_level(level_node):
 			if aBlock[0] == "Portal_g":
 				var block = portal_g.instance();
 				var noOfBlocks = aBlock[1];
-				var offset = block.getPositionOffset("left");
+				var offset = block.getPositionOffset("right");
 				block.position = Vector2(xOffset, yOffset) + offset;
 				level_node.add_child(block);
 				pass;
@@ -211,6 +306,10 @@ func init_level(level_node):
 #
 #	return total_bricks
 func handleEvents(level_node, type, params):
+	print(level_node,level_node.name, level_node, type, params);
+	if type == "Portal_g":
+		
+		level_node.emit_signal("levelSignal", "Portal_p", params);
 	if type == "doorVertical":
 		var action = params;
 		if action == "start":

@@ -26,5 +26,5 @@ margin_bottom = 50.0
 custom_fonts/font = SubResource( 1 )
 text = "0"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Level" type="RichTextLabel" parent="."]
 text = "Rich text"

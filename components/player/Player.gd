@@ -21,7 +21,9 @@ func _ready():
 	screensize = get_viewport_rect().size;
 	resetPlayer();
 	pass
-	
+
+func showLoading():
+	$Loading.show();
 func resetPlayer():
 	self.hide();
 	self.position = global.player_init_position;
@@ -30,6 +32,7 @@ func resetPlayer():
 	self.velocity = Vector2(0,0);
 	direction = Vector2(0,1);
 	self.show();
+	$Loading.hide();
 
 func handleCollision(collision_info):
 	var collider = collision_info.collider;

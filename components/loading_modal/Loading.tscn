@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://textures/font/kenvector_future.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/glassPanel.png-a72528f25060a2c8ed62badaa83eb201.stex"
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/barBack_horizontalMid.png-27f3bdd4f2274a4629f57d743245b41c.stex"
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 1 )
+
+[node name="Loading" type="Node2D"]
+z_index = 2
+
+[node name="ui" type="Sprite" parent="."]
+position = Vector2( -24.5932, 0 )
+scale = Vector2( 1.6668, 1 )
+texture = SubResource( 1 )
+
+[node name="bg2" type="Sprite" parent="."]
+visible = false
+position = Vector2( -2.37998, 58.7065 )
+scale = Vector2( 15.0155, 4.70221 )
+texture = SubResource( 2 )
+
+[node name="text" type="Label" parent="."]
+margin_left = -95.6534
+margin_top = -28.1733
+margin_right = 53.3466
+margin_bottom = 31.8267
+custom_fonts/font = SubResource( 3 )
+text = "Loading
+Please wait ..."

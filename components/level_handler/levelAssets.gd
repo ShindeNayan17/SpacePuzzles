@@ -11,6 +11,7 @@ var doorVertical;
 var portal_p;
 var portal_g;
 var bgAnimated;
+var level_instructions;
 #var level01 = preload("res://textures/levels/01.png");
 
 func _init():
@@ -22,8 +23,8 @@ func _init():
 	portal_p = load ("res://components/portal_p/Portal_p.tscn");
 	portal_g = load ("res://components/portal_g/Portal_g.tscn");
 	bgAnimated = load ("res://components/bg_animated/BgAnimated.tscn");
-	
-	
+	level_instructions = load ("res://components/level_instructions/Instructions.tscn");
+
 
 
 func init_level(level_node):

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://components/level_instructions/Instructions.gd" type="Script" id=1]
+[ext_resource path="res://textures/Mouse.png" type="Texture" id=2]
+[ext_resource path="res://textures/font/kenvector_future.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/Mouse2.png-e74a23bf0a302ec2f6b2620b9712f1b9.stex"
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 3 )
+
+[node name="Instructions" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="mouse" type="Node2D" parent="."]
+position = Vector2( 0, -94.9726 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="mouse" type="Sprite" parent="mouse"]
+texture = ExtResource( 2 )
+
+[node name="leftClick" type="Sprite" parent="mouse"]
+position = Vector2( -10.8242, -10.6485 )
+scale = Vector2( 0.685749, 0.578088 )
+texture = SubResource( 1 )
+
+[node name="levelMessage" type="Label" parent="."]
+margin_left = -150.0
+margin_top = -16.0
+margin_right = 150.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 2 )
+text = "1. The Basics"

@@ -53,7 +53,8 @@ func _on_DoorVertical_body_entered(body):
 		if (body.name == "Player"):
 			$Timer.set_wait_time(2);
 			$Timer.start();
-			body.showLoading();
+			if doorAction == "end":
+				body.showLoading();
 			
 	pass # Replace with function body.
 

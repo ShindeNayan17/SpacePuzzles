@@ -19,10 +19,12 @@ const portalEndL = ["Portal_g" ,1, "left"];
 const portalStartR = ["Portal_p" ,1, "right"];
 const portalEndR = ["Portal_g" ,1, "right"];
 const playerInstance = ["player" ,1];
+const instructions = ["instruction" ,1];
 
 
 const v = {
 	11:playerInstance,
+	12:instructions,
 	0: blk,
 	1: wall,
 	2: doorStartTop,
@@ -39,7 +41,7 @@ const v = {
 func addMovingEntities(level_node):
 	var vectorArray = [
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
-	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[1], v[1], v[1], v[1]],
@@ -66,14 +68,6 @@ func addMovingEntities(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[10], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -86,6 +80,15 @@ func addMovingEntities(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[12], v[0], v[0], v[0], v[1]],
 	[v[1], v[2], v[11], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
@@ -131,6 +134,13 @@ func addMovingEntities(level_node):
 				global.player_init_position = Vector2(xOffset, yOffset);
 				level_node.add_child(block);
 				pass;
+			
+			if aBlock[0] == "instruction":
+				var block = level_instructions.instance();
+				block.position = Vector2(xOffset, yOffset)
+				#print("block pos", block.position, xOffset, yOffset);
+				level_node.add_child(block);
+				pass;
 
 			
 		
@@ -158,6 +168,7 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -175,8 +186,7 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -272,21 +282,6 @@ func init_level(level_node):
 				level_node.add_child(block);
 				pass;
 			
-			if aBlock[0] == "Portal_p":
-				var block = portal_p.instance();
-				var noOfBlocks = aBlock[1];
-				var offset = block.getPositionOffset("left");
-				block.position = Vector2(xOffset, yOffset) + offset;
-				level_node.add_child(block);
-				pass;
-			
-			if aBlock[0] == "Portal_g":
-				var block = portal_g.instance();
-				var noOfBlocks = aBlock[1];
-				var offset = block.getPositionOffset("right");
-				block.position = Vector2(xOffset, yOffset) + offset;
-				level_node.add_child(block);
-				pass;
 		
 		
 	self.addMovingEntities(level_node);

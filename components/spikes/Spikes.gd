@@ -49,9 +49,10 @@ func update_wall():
 		self.shape_owner_clear_shapes(so)
 		var r = RectangleShape2D.new()
 		if(orientation=="horizontal"):
+			print("asdfasfasdfasdfasf");
 			r.set_extents(Vector2(length/2,width/2))
 		else:
-			r.set_extents(Vector2(width/2,length/2))
+			r.set_extents(Vector2(width/2,length/4))
 		self.shape_owner_add_shape(so,r);
 #		update()
 

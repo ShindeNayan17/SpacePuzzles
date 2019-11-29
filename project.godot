@@ -28,6 +28,7 @@ global="*res://autoload/global.gd"
 window/size/width=640
 window/size/height=800
 window/size/resizable=false
+mouse_cursor/custom_image="res://textures/cursorHand_blue.png"
 
 [input]
 

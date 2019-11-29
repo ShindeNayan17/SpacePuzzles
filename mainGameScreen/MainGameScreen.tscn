@@ -1,38 +1,45 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://mainGameScreen/MainGameScreen.gd" type="Script" id=1]
-[ext_resource path="res://components/waill_simple/WallSimple.tscn" type="PackedScene" id=2]
-[ext_resource path="res://components/level_handler/LevelHandler.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game_ui/GameUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/waill_simple/WallSimple.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/level_handler/LevelHandler.tscn" type="PackedScene" id=4]
 
 [node name="MainGameScreen" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="WallSimpleLeft" parent="." instance=ExtResource( 2 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource( 2 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="WallSimpleLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 1600 )
 orientation = ""
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
 width = 16.0
 length = 3200.0
 
-[node name="WallSimpleRight" parent="." instance=ExtResource( 2 )]
+[node name="WallSimpleRight" parent="." instance=ExtResource( 3 )]
 position = Vector2( 600, 1600 )
 orientation = ""
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
 width = 16.0
 length = 3200.0
 
-[node name="WallSimpleBottom" parent="." instance=ExtResource( 2 )]
+[node name="WallSimpleBottom" parent="." instance=ExtResource( 3 )]
 position = Vector2( 300, 3200 )
 orientation = "horizontal"
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
 width = 16.0
 length = 616.0
 
-[node name="WallSimpleTop" parent="." instance=ExtResource( 2 )]
+[node name="WallSimpleTop" parent="." instance=ExtResource( 3 )]
 position = Vector2( 300, 0 )
 orientation = "horizontal"
 color = Color( 0.705882, 0.705882, 0.705882, 1 )
 width = 16.0
 length = 616.0
 
-[node name="LevelHandler" parent="." instance=ExtResource( 3 )]
+[node name="LevelHandler" parent="." instance=ExtResource( 4 )]

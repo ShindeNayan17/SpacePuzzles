@@ -18,9 +18,11 @@ const portalStartL = ["Portal_p" ,1, "left"];
 const portalEndL = ["Portal_g" ,1, "left"];
 const portalStartR = ["Portal_p" ,1, "right"];
 const portalEndR = ["Portal_g" ,1, "right"];
+const playerInstance = ["player" ,1];
 
 
 const v = {
+	11:playerInstance,
 	0: blk,
 	1: wall,
 	2: doorStartTop,
@@ -84,7 +86,7 @@ func addMovingEntities(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[2], v[11], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	
@@ -121,7 +123,16 @@ func addMovingEntities(level_node):
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
 				level_node.add_child(block);
 				pass;
-		
+				
+			if aBlock[0] == "player":
+				var block = player.instance();
+				block.SPEED = 20;
+				var noOfBlocks = aBlock[1];
+				global.player_init_position = Vector2(xOffset, yOffset);
+				level_node.add_child(block);
+				pass;
+
+			
 		
 #		
 

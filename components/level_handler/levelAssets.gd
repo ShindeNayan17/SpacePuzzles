@@ -3,6 +3,7 @@ extends Reference
 #var separation
 
 # all scene components of all levels
+var player;
 var wallSimple;
 var wallAnimated;
 var spikes;
@@ -12,6 +13,7 @@ var portal_g;
 #var level01 = preload("res://textures/levels/01.png");
 
 func _init():
+	player = load ("res://components/player/Player.tscn");
 	wallSimple = load("res://components/waill_simple/WallSimple.tscn");	
 	wallAnimated = load("res://components/wall_animated/WallAnimated.tscn");
 	spikes = load ("res://components/spikes/Spikes.tscn");

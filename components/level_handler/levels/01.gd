@@ -193,8 +193,15 @@ func init_level(level_node):
 	
 	]
 	
-	
-	
+	# adding Background (simple)
+	var bgAnimatedIst = bgAnimated.instance();
+	#var noOfBlocks = aBlock[1];
+	bgAnimatedIst.set_width(700);
+	bgAnimatedIst.set_length(3600);
+#				print("x, yoffset ", xOffset, yOffset );
+	bgAnimatedIst.position = Vector2(300,1800)
+	#print("block pos", block.position, xOffset, yOffset);
+	level_node.add_child(bgAnimatedIst);
 	for i in range(vectorArray.size()):
 		var aRow = vectorArray[i];
 		for j in range(aRow.size()) :

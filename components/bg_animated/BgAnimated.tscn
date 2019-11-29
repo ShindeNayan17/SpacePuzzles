@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://components/bg_animated/BgAnimated.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/purple.png-b7a84daeacd382bd2d4d2f8b1d2dd127.stex"
+
+[node name="BgAnimated" type="StaticBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+width = 256.0
+length = 256.0
+
+[node name="BgSprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 256, 256 )
+
+[node name="WallShape" type="CollisionShape2D" parent="."]
+disabled = true

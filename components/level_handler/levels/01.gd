@@ -318,8 +318,9 @@ func init_level(level_node):
 #	return total_bricks
 func handleEvents(level_node, type, params):
 	print(level_node,level_node.name, level_node, type, params);
+	if type == "Portal_p":
+		level_node.emit_signal("levelSignal", "Portal_g", params);
 	if type == "Portal_g":
-		
 		level_node.emit_signal("levelSignal", "Portal_p", params);
 	if type == "doorVertical":
 		var action = params;

@@ -1,14 +1,14 @@
 [gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://components/portal_p/Portal_p.gd" type="Script" id=1]
-[ext_resource path="res://textures/purplePortal/tile000.png" type="Texture" id=2]
-[ext_resource path="res://textures/purplePortal/tile001.png" type="Texture" id=3]
-[ext_resource path="res://textures/purplePortal/tile002.png" type="Texture" id=4]
-[ext_resource path="res://textures/purplePortal/tile003.png" type="Texture" id=5]
-[ext_resource path="res://textures/purplePortal/tile004.png" type="Texture" id=6]
-[ext_resource path="res://textures/purplePortal/tile005.png" type="Texture" id=7]
-[ext_resource path="res://textures/purplePortal/tile006.png" type="Texture" id=8]
-[ext_resource path="res://textures/purplePortal/tile007.png" type="Texture" id=9]
+[ext_resource path="res://textures/purplePortal/tile016.png" type="Texture" id=2]
+[ext_resource path="res://textures/purplePortal/tile017.png" type="Texture" id=3]
+[ext_resource path="res://textures/purplePortal/tile018.png" type="Texture" id=4]
+[ext_resource path="res://textures/purplePortal/tile019.png" type="Texture" id=5]
+[ext_resource path="res://textures/purplePortal/tile020.png" type="Texture" id=6]
+[ext_resource path="res://textures/purplePortal/tile021.png" type="Texture" id=7]
+[ext_resource path="res://textures/purplePortal/tile022.png" type="Texture" id=8]
+[ext_resource path="res://textures/purplePortal/tile023.png" type="Texture" id=9]
 [ext_resource path="res://textures/purplePortal/tile008.png" type="Texture" id=10]
 [ext_resource path="res://textures/purplePortal/tile009.png" type="Texture" id=11]
 [ext_resource path="res://textures/purplePortal/tile010.png" type="Texture" id=12]
@@ -17,14 +17,14 @@
 [ext_resource path="res://textures/purplePortal/tile013.png" type="Texture" id=15]
 [ext_resource path="res://textures/purplePortal/tile014.png" type="Texture" id=16]
 [ext_resource path="res://textures/purplePortal/tile015.png" type="Texture" id=17]
-[ext_resource path="res://textures/purplePortal/tile016.png" type="Texture" id=18]
-[ext_resource path="res://textures/purplePortal/tile017.png" type="Texture" id=19]
-[ext_resource path="res://textures/purplePortal/tile018.png" type="Texture" id=20]
-[ext_resource path="res://textures/purplePortal/tile019.png" type="Texture" id=21]
-[ext_resource path="res://textures/purplePortal/tile020.png" type="Texture" id=22]
-[ext_resource path="res://textures/purplePortal/tile021.png" type="Texture" id=23]
-[ext_resource path="res://textures/purplePortal/tile022.png" type="Texture" id=24]
-[ext_resource path="res://textures/purplePortal/tile023.png" type="Texture" id=25]
+[ext_resource path="res://textures/purplePortal/tile000.png" type="Texture" id=18]
+[ext_resource path="res://textures/purplePortal/tile001.png" type="Texture" id=19]
+[ext_resource path="res://textures/purplePortal/tile002.png" type="Texture" id=20]
+[ext_resource path="res://textures/purplePortal/tile003.png" type="Texture" id=21]
+[ext_resource path="res://textures/purplePortal/tile004.png" type="Texture" id=22]
+[ext_resource path="res://textures/purplePortal/tile005.png" type="Texture" id=23]
+[ext_resource path="res://textures/purplePortal/tile006.png" type="Texture" id=24]
+[ext_resource path="res://textures/purplePortal/tile007.png" type="Texture" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 34 )
@@ -38,7 +38,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "PortalIdle_p",
+"name": "PortalClose_p",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
@@ -48,7 +48,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ],
 "loop": true,
-"name": "PortalClose_p",
+"name": "PortalIdle_p",
 "speed": 5.0
 } ]
 
@@ -63,5 +63,7 @@ position = Vector2( 0, -8 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 2 )
 animation = "PortalIdle_p"
-frame = 2
 playing = true
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="body_entered" from="." to="." method="_on_Portal_body_entered"]

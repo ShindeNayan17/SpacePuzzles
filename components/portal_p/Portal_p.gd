@@ -2,16 +2,17 @@ extends Area2D
 signal portalEntered;
 func _ready():
 	getPositionOffset("left")
+	$Timer.connect("timeout",self,"_on_timer_timeout") 
 
-var counter = 0;
 var disabled = false;
 func _physics_process(delta):
-	if counter >0:
-		disabled = true;
-		print("counter", counter);
-		counter -= delta;
-	else:
-		disabled = false;
+	print("$Timer.time_left", $Timer.time_left);
+#	if counter >0:
+#		disabled = true;
+#		print("counter", counter);
+#		counter -= delta;
+#	else:
+#		disabled = false;
 func getPositionOffset(dir):
 	var positionOffset = Vector2(0,0);
 	var portalSprite = $"PortalSprite";
@@ -35,29 +36,29 @@ func getPositionOffset(dir):
 
 
 func _on_Portal_body_received(type, body):
-	print("type ,body");
 	if (global.level_pause): return;
 	if (body.name == "Player" ):
-		print("type and body received at P", type, body);
 		if type == "Portal_p" && !disabled:
+			 
 			disabled = true;
-			counter = 10;
-			print("type and body received at P inside", type, body);
+			$Timer.set_wait_time(3);
+			$Timer.start();
 			body.position.x = self.position.x;
 			body.position.y = self.position.y;
-			
-			
-#			body.position.x = body.position.x - self.position.x;
-#			body.position.y = body.position.y - self.position.y;
-			
-			var newPosition = body.position
-			print("body, self", body.position, self.position);
-		#self.emit_signal("portalEntered", "Portal_g",body);
 	pass # Replace with function body.
 
+func _on_timer_timeout():
+	disabled = false
+	$Timer.stop();
+	pass;
+#func delay(sec):
+#	$Timer.set_wait_time(sec);
+#	$Timer.set_one_shot(true);
+#	$Timer.start();
+#	yield($Timer, "timeout");
 func _on_Portal_body_entered(body):
 	if (global.level_pause): return;
-	if (body.name == "Player"):
+	if (body.name == "Player" && !disabled):
 		self.emit_signal("portalEntered", "Portal_p",body);
 	pass # Replace with function body.
 

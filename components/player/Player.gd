@@ -11,6 +11,7 @@ var hp = global.PLAYER_DEFAULT_LIVES;
 export (int) var SPEED
 export (int) var JUMP_SPEED
 
+var currentPlayerSpeed = SPEED;
 var isPlayerMoving = false;
 var velocity = Vector2()
 var screensize;
@@ -53,7 +54,7 @@ func handleCollision(collision_info):
 func _physics_process(delta):
 	if (global.level_pause): return;
 	#lineCollidingPointNormal = $"playerRay".get_collision_normal();
-	var collision_info  = self.move_and_collide(direction * SPEED);
+	var collision_info  = self.move_and_collide(direction * currentPlayerSpeed);
 	rotate_player();
 	if collision_info:
 #		take_damage
@@ -62,7 +63,8 @@ func _physics_process(delta):
 		handleCollision(collision_info);
 		if(!bounceBack):
 			if (isPlayerMoving): isPlayerMoving = false;
-			direction = Vector2(0,0);
+			currentPlayerSpeed = 0;
+#			direction = Vector2(0,0);
 		else:
 			playerBounce(collision_info);
 		
@@ -72,50 +74,6 @@ func _physics_process(delta):
 	else:
 		if (!isPlayerMoving): isPlayerMoving = true;
 		#print("player in motion");
-
-	
-
-	#drawLine();
-	velocity = Vector2()
-	velocity = move_and_slide(velocity, FLOOR_NORMAL, SLOPE_SLIDE_STOP)
-	var on_floor = is_on_floor()
-	
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-	if on_floor and Input.is_action_just_pressed("player_action_jump"):
-		velocity.y = -JUMP_SPEED
-		print("jump");
-		#($SoundJump as AudioStreamPlayer2D).play()
-	
-	if Input.is_action_pressed("ui_up"):
-		
-		velocity.y -= 1
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * SPEED
-		#$AnimatedSprite.play()
-		#$Trail.emitting = true
-	else:
-		pass;
-		
-		#$AnimatedSprite.stop()
-		#$Trail.emitting = false
-
-	position += velocity * delta
-	#position.x = clamp(position.x, 0, screensize.x)
-	#position.y = clamp(position.y, 0, screensize.y)
-
-	#if velocity.x != 0:
-		#$AnimatedSprite.animation = "right"
-		#$AnimatedSprite.flip_v = false
-		#$AnimatedSprite.flip_h = velocity.x < 0
-	#elif velocity.y != 0:
-		#$AnimatedSprite.animation = "up"
-		#$AnimatedSprite.flip_v = velocity.y > 0
-
 func _draw():
 	if(!isPlayerMoving):
 		var currentMouseDirection = get_local_mouse_position().normalized();
@@ -152,7 +110,10 @@ func _input(event):
 	if event is InputEventMouseButton:
 		var mouseReleased = !event.is_pressed();
 		var clickType = event.get_button_index()
+		if mouseReleased && clickType == BUTTON_LEFT:
+			currentPlayerSpeed = SPEED;
 		if (!isPlayerMoving && mouseReleased && clickType == BUTTON_LEFT ):
+			
 			direction = get_local_mouse_position().normalized();
 			lineCollidingPointNormal = $"playerRay".get_collision_normal();
 			removeLine();

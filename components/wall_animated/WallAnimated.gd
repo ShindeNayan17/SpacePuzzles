@@ -13,8 +13,10 @@ export (float) var length=64 setget set_length
 export (bool) var is_rotation=false setget set_is_rotation
 export (float) var rotationSpeed=1 setget set_rotation_speed
 
-var shape_owner
 
+
+var shape_owner
+var tween
 func _ready():
 	if orientation==null:
 		orientation="horizontal"
@@ -26,6 +28,11 @@ func _ready():
 func damage(entity):
 	#entity.take_damage(99999);
 	pass;
+
+
+#func _physics_process(delta):
+#	if(is_rotation):
+		# self.rotate(rotationSpeed * delta);
 
 func update_wall():
 	if !get_shape_owners().empty(): # the function can be called before the shape owner is created
@@ -43,9 +50,43 @@ func update_wall():
 		$"WallSprite".region_rect =spriteRect;
 		$"WallSprite".rotation_degrees = angleDegree;
 		
-		# var aSprite = Sprite.new();
+		if(is_rotation):
+			
+			print("tween connecting");
+			var start = 0;
+			var end = 360;
+			if(orientation=="horizontal"):
+				pass;
+			else:
+				start = 90;
+				end = 450;
+			tween = Tween.new()
+			add_child(tween);
+			
+			tween.interpolate_property(
+				self, "rotation_degrees", 
+				start, end, 5,
+				Tween.TRANS_LINEAR , Tween.TRANS_LINEAR )
+			tween.set_repeat(true);
+			tween.start()
+			var spikeInstance = load("res://components/spikes/Spikes.tscn");
+			var spikeLeft = spikeInstance.instance();
+			var spikeRight = spikeInstance.instance();
 		
-		
+			spikeLeft.set_width(width);
+			spikeLeft.set_length(width);
+			spikeLeft.set_orientation("horizontal");
+			spikeLeft.set_invert(true);
+			spikeRight.set_width(width);
+			spikeRight.set_length(width);
+			spikeRight.set_orientation("horizontal");
+			spikeRight.set_invert(false);
+			
+			
+			spikeLeft.position = Vector2(-width,length/2 - width/2);
+			spikeRight.position = Vector2(width,-length/2 + width/2);
+			add_child(spikeLeft);
+			add_child(spikeRight);
 		
 		var so = get_shape_owners()[0]
 		self.shape_owner_clear_shapes(so)

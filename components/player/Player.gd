@@ -40,13 +40,8 @@ func playerBounce(collision_info):
 	var currentDirection = direction;
 	var normal = collision_info.normal;
 	var collidingPoint = collision_info.position;
-	
-	lineCollidingPointNormal = lineCollidingPointNormal.reflect(normal);
-	
 	direction = currentDirection.bounce(normal);
-#	$"playerRay".set_cast_to(direction*100000);
-#	lineCollidingPointNormal = $"playerRay".get_collision_normal();
-	
+	$"Sprite".rotate(PI);
 	bounceBack = false;
 
 func handleCollision(collision_info):
@@ -182,13 +177,12 @@ func get_rot():
 func rotate_player():
 	if playerAngle != direction.angle():
 		playerAngle = direction.angle();
-		print("rotating now");
 		if isPlayerMoving: 
-			
+			pass;
 #			print("angle", direction.angle() );
-			$"Sprite".rotation = direction.angle();
+#			$"Sprite".rotation = lineCollidingPointNormal.angle() + PI/2 ;
 		else:
-			$"Sprite".rotation = lineCollidingPointNormal.angle() + PI/2 ;
+			$"Sprite".rotation = lineCollidingPointNormal.angle() + PI/2;
 		
 			
 		

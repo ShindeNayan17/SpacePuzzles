@@ -36,4 +36,7 @@ collide_with_areas = true
 
 [node name="Loading" parent="." instance=ExtResource( 2 )]
 visible = false
+
+[node name="LazerGun" type="Sprite" parent="."]
+visible = false
 [connection signal="player_killed" from="." to="." method="_on_Player_player_killed"]

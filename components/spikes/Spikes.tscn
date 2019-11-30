@@ -3,7 +3,6 @@
 [ext_resource path="res://components/spikes/Spikes.gd" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=1]
-flags = 4
 load_path = "res://.import/platformPack_tile043.png-2e3311f1f69a25c90400c5db61a4a7ff.stex"
 
 [node name="Spikes" type="StaticBody2D"]

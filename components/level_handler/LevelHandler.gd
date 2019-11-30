@@ -13,13 +13,6 @@ func handleLevelEvents(eventType, payload):
 	lb.handleEvents(self, eventType, payload);
 	pass;
 
-func resetLevel():
-	for i in range (get_child_count()):
-		#if(is Moving entity) get_child(i).queue_free()
-		pass;
-	lb.addMovingEntities(self);
-	
-	pass;
 func load_level(level):
 	global.level_pause = true;
 	var path = "res://components/level_handler/levels/"+str(level)+".gd";

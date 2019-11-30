@@ -1,5 +1,5 @@
 extends "res://components/level_handler/levelAssets.gd"
-
+#<source_node>.connect(<signal_name>, <target_node>, <target_function_name>)
 #autoload singletons
 # global
 
@@ -114,6 +114,7 @@ func addMovingEntities(level_node):
 				block.position = Vector2(xOffset, yOffset) + offset;
 				block.connect("portalEntered", level_node, "handleLevelEvents");
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 			
@@ -124,6 +125,7 @@ func addMovingEntities(level_node):
 				block.position = Vector2(xOffset, yOffset) + offset;
 				block.connect("portalEntered", level_node, "handleLevelEvents");
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 				
@@ -132,13 +134,19 @@ func addMovingEntities(level_node):
 				block.SPEED = 20;
 				var noOfBlocks = aBlock[1];
 				global.player_init_position = Vector2(xOffset, yOffset);
+				block.connect("restart_level", level_node, "handleLevelEvents");
+				block.add_to_group("entities");
+				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				
 				level_node.add_child(block);
+				
 				pass;
 			
 			if aBlock[0] == "instruction":
 				var block = level_instructions.instance();
 				block.position = Vector2(xOffset, yOffset)
 				#print("block pos", block.position, xOffset, yOffset);
+				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 
@@ -335,4 +343,19 @@ func handleEvents(level_node, type, params):
 			print("exec level end");
 			level_node.level_complete();
 			pass;
+	if type == "Player":
+		var action = params;
+		if action == "restartLevel":
+			restart_level(level_node);
 		
+
+func restart_level(level_node):
+	
+	for i in range (level_node.get_child_count()):
+		var aChild = level_node.get_child(i);
+		if aChild.is_in_group("entities"):
+			aChild.queue_free();
+		pass;
+	addMovingEntities(level_node);
+	
+	pass;

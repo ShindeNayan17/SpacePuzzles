@@ -13,7 +13,9 @@ export (int) var JUMP_SPEED
 
 var isPlayerMoving = false;
 var velocity = Vector2()
-var screensize
+var screensize;
+var bounceBack = false;
+var bounceNormal = Vector2();
 var mousePosition = Vector2();
 var playerAngle = 0;
 var lineCollidingPointNormal = Vector2();
@@ -34,34 +36,50 @@ func resetPlayer():
 	self.show();
 	$Loading.hide();
 
+func playerBounce(collision_info):
+	var currentDirection = direction;
+	var normal = collision_info.normal;
+	var collidingPoint = collision_info.position;
+	
+	lineCollidingPointNormal = lineCollidingPointNormal.reflect(normal);
+	
+	direction = currentDirection.bounce(normal);
+#	$"playerRay".set_cast_to(direction*100000);
+#	lineCollidingPointNormal = $"playerRay".get_collision_normal();
+	
+	bounceBack = false;
+
 func handleCollision(collision_info):
 	var collider = collision_info.collider;
-	if collider.has_method("collide"):
+	if collider && collider.has_method("collide"):
 		collider.collide(self);
 	pass;
-	
+
 func _physics_process(delta):
 	if (global.level_pause): return;
+	#lineCollidingPointNormal = $"playerRay".get_collision_normal();
 	var collision_info  = self.move_and_collide(direction * SPEED);
-	rotate_player(delta);
+	rotate_player();
 	if collision_info:
 #		take_damage
 		
 		
-		if (isPlayerMoving): isPlayerMoving = false;
 		handleCollision(collision_info);
-		update();
+		if(!bounceBack):
+			if (isPlayerMoving): isPlayerMoving = false;
+			direction = Vector2(0,0);
+		else:
+			playerBounce(collision_info);
+		
 		#print("collided, player idle");
 		
 		pass;
 	else:
 		if (!isPlayerMoving): isPlayerMoving = true;
 		#print("player in motion");
-	
 
 	
 
-func _physics_processsss(delta):
 	#drawLine();
 	velocity = Vector2()
 	velocity = move_and_slide(velocity, FLOOR_NORMAL, SLOPE_SLIDE_STOP)
@@ -137,7 +155,6 @@ func _input(event):
 	
 	# Mouse in viewport coordinates
 	if event is InputEventMouseButton:
-		print("mouse event");
 		var mouseReleased = !event.is_pressed();
 		var clickType = event.get_button_index()
 		if (!isPlayerMoving && mouseReleased && clickType == BUTTON_LEFT ):
@@ -162,11 +179,18 @@ func get_rot():
 	
 	return 
 
-func rotate_player(delta):
+func rotate_player():
 	if playerAngle != direction.angle():
 		playerAngle = direction.angle();
+		print("rotating now");
+		if isPlayerMoving: 
+			
+#			print("angle", direction.angle() );
+			$"Sprite".rotation = direction.angle();
+		else:
+			$"Sprite".rotation = lineCollidingPointNormal.angle() + PI/2 ;
 		
-		$"Sprite".rotation = lineCollidingPointNormal.angle() + PI/2;
+			
 		
 		#print("angle", normalAngle);
 		#$"Sprite".rotation = normalAngle.angle();
@@ -212,11 +236,11 @@ func take_damage(damage):
 		#emit_signal("player_damaged", damage)
 	if hp <= 0.0:
 #		pass;
-		emit_signal("player_killed")
+		_on_Player_player_killed();
 
 func _on_Player_player_killed():
 	# self.queue_free();
 	
 	
-	emit_signal("restart_level");
+	emit_signal("restart_level", "Player", "restartLevel");
 	pass # Replace with function body.

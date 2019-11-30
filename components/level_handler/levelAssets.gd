@@ -12,12 +12,14 @@ var portal_p;
 var portal_g;
 var bgAnimated;
 var level_instructions;
+var wallBouncy
 #var level01 = preload("res://textures/levels/01.png");
 
 func _init():
 	player = load ("res://components/player/Player.tscn");
 	wallSimple = load("res://components/waill_simple/WallSimple.tscn");	
 	wallAnimated = load("res://components/wall_animated/WallAnimated.tscn");
+	wallBouncy = load("res://components/wall_bouncy/WallBouncy.tscn");
 	spikes = load ("res://components/spikes/Spikes.tscn");
 	doorVertical = load ("res://components/doorVertical/DoorVertical.tscn");
 	portal_p = load ("res://components/portal_p/Portal_p.tscn");

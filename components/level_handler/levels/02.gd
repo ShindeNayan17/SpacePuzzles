@@ -1,5 +1,5 @@
 extends "res://components/level_handler/levelAssets.gd"
-
+#<source_node>.connect(<signal_name>, <target_node>, <target_function_name>)
 #autoload singletons
 # global
 
@@ -14,26 +14,37 @@ const doorEndBottom = ["doorVertical",2, "end" ,"bottom"];
 const walL4 = ["wallSimple" ,1,"left"];
 const brick = ["wallAnimated" ,1,"left"];
 const spikeTop = ["Spikes" ,1,"bottom", true];
-
+const portalStartL = ["Portal_p" ,1, "left"];
+const portalEndL = ["Portal_g" ,1, "left"];
+const portalStartR = ["Portal_p" ,1, "right"];
+const portalEndR = ["Portal_g" ,1, "right"];
+const playerInstance = ["player" ,1];
+const instructions = ["instruction" ,1];
+const wallB = ["wallBouncy" ,1,"left"];
 
 const v = {
+	11:playerInstance,
+	12:instructions,
 	0: blk,
 	1: wall,
 	2: doorStartTop,
 	3: doorStartBottom,
 	4: doorEndTop,
 	5: doorEndBottom,
-	6: spikeTop
+	6: spikeTop,
+	7: portalStartL,
+	8: portalEndL,
+	9: portalStartR,
+	10: portalEndR,
+	13: wallB
 }
 
 func addMovingEntities(level_node):
-	pass;
-func init_level(level_node):
 	var vectorArray = [
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
-	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[1], v[1], v[1], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -70,15 +81,16 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[12], v[0], v[0], v[0], v[1]],
+	[v[1], v[2], v[11], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	
@@ -86,6 +98,130 @@ func init_level(level_node):
 	
 	
 	
+	for i in range(vectorArray.size()):
+		var aRow = vectorArray[i];
+		for j in range(aRow.size()) :
+			var aBlock = aRow[j];
+			var xOffset = j*blockWidth;
+			var yOffset = i*blockHeight;
+			
+			if aBlock[0] == "blank":
+				pass;
+			
+			if aBlock[0] == "Portal_p":
+				var block = portal_p.instance();
+				var noOfBlocks = aBlock[1];
+				var offset = block.getPositionOffset(aBlock[2]);
+				block.position = Vector2(xOffset, yOffset) + offset;
+				block.connect("portalEntered", level_node, "handleLevelEvents");
+				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				block.add_to_group("entities");
+				level_node.add_child(block);
+				pass;
+			
+			if aBlock[0] == "Portal_g":
+				var block = portal_g.instance();
+				var noOfBlocks = aBlock[1];
+				var offset = block.getPositionOffset(aBlock[2]);
+				block.position = Vector2(xOffset, yOffset) + offset;
+				block.connect("portalEntered", level_node, "handleLevelEvents");
+				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				block.add_to_group("entities");
+				level_node.add_child(block);
+				pass;
+				
+			if aBlock[0] == "player":
+				var block = player.instance();
+				block.SPEED = 20;
+				var noOfBlocks = aBlock[1];
+				global.player_init_position = Vector2(xOffset, yOffset);
+				block.connect("restart_level", level_node, "handleLevelEvents");
+				block.add_to_group("entities");
+				level_node.connect("levelSignal", block, "_on_Portal_body_received");
+				
+				level_node.add_child(block);
+				
+				pass;
+			
+			if aBlock[0] == "instruction":
+				var block = level_instructions.instance();
+				block.position = Vector2(xOffset, yOffset)
+				#print("block pos", block.position, xOffset, yOffset);
+				block.add_to_group("entities");
+				level_node.add_child(block);
+				pass;
+
+			
+		
+#		
+
+	pass;
+func init_level(level_node):
+	var vectorArray = [
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
+	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[4], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[1], v[1], v[1], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[0], v[0], v[1]],
+	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[0], v[0], v[1]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[13], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[13]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[0], v[0], v[1]],
+	[v[1], v[6], v[6], v[6], v[6], v[6], v[6], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
+	[v[1], v[0], v[0], v[6], v[6], v[6], v[6], v[6], v[6], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
+	
+	]
+	
+	# adding Background (simple)
+	var bgAnimatedIst = bgAnimated.instance();
+	#var noOfBlocks = aBlock[1];
+	bgAnimatedIst.set_width(700);
+	bgAnimatedIst.set_length(3600);
+#				print("x, yoffset ", xOffset, yOffset );
+	bgAnimatedIst.position = Vector2(300,1800)
+	#print("block pos", block.position, xOffset, yOffset);
+	level_node.add_child(bgAnimatedIst);
 	for i in range(vectorArray.size()):
 		var aRow = vectorArray[i];
 		for j in range(aRow.size()) :
@@ -119,6 +255,7 @@ func init_level(level_node):
 				block.position = Vector2(xOffset, yOffset);
 				block.set_enableEvents(true);
 				block.connect("doorEntered", level_node, "handleLevelEvents");
+				level_node.connect("doorEntered", block, "_on_Portal_body_received");
 				level_node.add_child(block);
 				
 				
@@ -154,7 +291,16 @@ func init_level(level_node):
 				#print("block pos", block.position, xOffset, yOffset);
 				level_node.add_child(block);
 				pass;
-			
+			if aBlock[0] == "wallBouncy":
+				var block = wallBouncy.instance();
+				var noOfBlocks = aBlock[1];
+				block.set_width(blockWidth);
+				block.set_length(blockHeight * noOfBlocks);
+				#block.set_color("#ff0000");
+#				print("x, yoffset ", xOffset, yOffset );
+				block.position = Vector2(xOffset, yOffset)
+				#print("block pos", block.position, xOffset, yOffset);
+				level_node.add_child(block);
 		
 		
 	self.addMovingEntities(level_node);
@@ -192,6 +338,11 @@ func init_level(level_node):
 #
 #	return total_bricks
 func handleEvents(level_node, type, params):
+	print(level_node,level_node.name, level_node, type, params);
+	if type == "Portal_p":
+		level_node.emit_signal("levelSignal", "Portal_g", params);
+	if type == "Portal_g":
+		level_node.emit_signal("levelSignal", "Portal_p", params);
 	if type == "doorVertical":
 		var action = params;
 		if action == "start":
@@ -203,4 +354,19 @@ func handleEvents(level_node, type, params):
 			print("exec level end");
 			level_node.level_complete();
 			pass;
+	if type == "Player":
+		var action = params;
+		if action == "restartLevel":
+			restart_level(level_node);
 		
+
+func restart_level(level_node):
+	
+	for i in range (level_node.get_child_count()):
+		var aChild = level_node.get_child(i);
+		if aChild.is_in_group("entities"):
+			aChild.queue_free();
+		pass;
+	addMovingEntities(level_node);
+	
+	pass;

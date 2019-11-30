@@ -10,7 +10,7 @@ const PLAYER_DEFAULT_LIVES = 5;
 
 var player_init_position = Vector2(100,760);
 const TOTAL_LEVEL = "02";
-var current_level = "01";
+var current_level = "02";
 
 var level_pause = false;
 #constants

@@ -4,14 +4,13 @@ var score # score of the current game
 var brick_texture #array of brick textures 
 var bonus_texture #dictionary of bonus textures
 var bonus_effect #dictionary of bonus effects
-var bonus_message #dictionary of bonus messages
-
+var bonus_message #dictionary of bonus messages 
 const PLAYER_DEFAULT_LIVES = 5;
 
 var player_init_position = Vector2(100,760);
-const TOTAL_LEVEL = "03";
+const TOTAL_LEVEL = "03"
 
-var current_level = "03";
+var current_level = "02";
 
 var level_pause = false;
 #constants

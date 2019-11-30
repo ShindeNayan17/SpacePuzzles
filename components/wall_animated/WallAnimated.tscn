@@ -3,7 +3,7 @@
 [ext_resource path="res://components/wall_animated/WallAnimated.gd" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=1]
-flags = 4
+flags = 6
 load_path = "res://.import/platformPack_tile016.png-6f1c53fc27df0971fae2840c01b2b112.stex"
 
 [node name="WallAnimated" type="StaticBody2D"]

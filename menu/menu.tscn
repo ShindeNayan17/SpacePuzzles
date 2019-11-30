@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://textures/Backgrounds/darkPurple.png" type="Texture" id=1]
+[ext_resource path="res://textures/Items/platformPack_item007.png" type="Texture" id=2]
+[ext_resource path="res://components/menu/newgamebutton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/menu/continuebutton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/menu/optionsbutton.tscn" type="PackedScene" id=5]
+
+[node name="title screen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 0.989087, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="menu" type="VBoxContainer" parent="."]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 600.0
+margin_bottom = 760.0
+
+[node name="logo" type="TextureRect" parent="menu"]
+margin_right = 560.0
+margin_bottom = 64.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="center row" type="HBoxContainer" parent="menu"]
+margin_top = 68.0
+margin_right = 560.0
+margin_bottom = 702.0
+size_flags_vertical = 3
+
+[node name="buttons" type="VBoxContainer" parent="menu/center row"]
+margin_left = 153.0
+margin_right = 360.0
+margin_bottom = 634.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 28
+alignment = 1
+
+[node name="menubutton2" parent="menu/center row/buttons" instance=ExtResource( 3 )]
+margin_top = 199.0
+margin_right = 360.0
+margin_bottom = 259.0
+
+[node name="menubutton3" parent="menu/center row/buttons" instance=ExtResource( 4 )]
+margin_top = 287.0
+margin_bottom = 347.0
+
+[node name="menubutton4" parent="menu/center row/buttons" instance=ExtResource( 5 )]
+margin_top = 375.0
+margin_bottom = 435.0
+
+[node name="CenterContainer" type="CenterContainer" parent="menu/center row"]
+margin_left = 364.0
+margin_right = 560.0
+margin_bottom = 634.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="menu/center row/CenterContainer"]
+margin_left = 98.0
+margin_top = 317.0
+margin_right = 98.0
+margin_bottom = 317.0
+
+[node name="footer" type="Label" parent="menu"]
+margin_top = 706.0
+margin_right = 560.0
+margin_bottom = 720.0
+size_flags_vertical = 5
+text = "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
+align = 1

@@ -10,9 +10,12 @@ export (bool) var inverted setget set_invert
 #export (Color, RGBA) var color setget set_color
 export (float) var width=16 setget set_width
 export (float) var length=64 setget set_length
+export (bool) var is_rotation=false setget set_is_rotation
+export (float) var rotationSpeed=1 setget set_rotation_speed
 
-var shape_owner
 
+var shape_owner;
+var tween;
 func _ready():
 	if orientation==null:
 		orientation="horizontal"
@@ -37,6 +40,26 @@ func update_wall():
 		$"WallSprite".region_rect =spriteRect;
 		$"WallSprite".rotation_degrees = angleDegree;
 		
+		
+		if(is_rotation):
+			
+			print("tween connecting");
+			var start = 0;
+			var end = 360;
+			if(orientation=="horizontal"):
+				pass;
+			else:
+				start = 90;
+				end = 450;
+			tween = Tween.new()
+			add_child(tween);
+			
+			tween.interpolate_property(
+				self, "rotation_degrees", 
+				start, end, 2,
+				Tween.TRANS_LINEAR , Tween.TRANS_LINEAR )
+			tween.set_repeat(true);
+			tween.start()
 		# var aSprite = Sprite.new();
 		
 		
@@ -87,4 +110,11 @@ func collide(body):
 	#var distance = body.position.distance_to(self.position);
 	#print();
 	pass; 
+func set_is_rotation(flag):
+	is_rotation = flag;
+	update_wall();
+
+func set_rotation_speed(speed):
+	rotationSpeed = speed;
+	update_wall();
 	

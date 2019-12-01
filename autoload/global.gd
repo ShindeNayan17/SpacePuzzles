@@ -30,7 +30,7 @@ func new_game():
 	get_tree().change_scene("res://mainGameScreen/MainGameScreen.tscn")
 
 func load_menu():
-	get_tree().change_scene("res://menu/menu.tscn")
+	get_tree().change_scene("res://components/menu/menu.tscn") # is the path ignore correct ? 
 	
 func load_hi_scores():
 	get_tree().change_scene("res://hi_scores/hi_scores.tscn")
@@ -53,3 +53,6 @@ func getNextLevel(currentLevel):
 		currentLevel = "0" + str(currentLevelNo);
 	else: pass;
 	return currentLevel;
+	
+	# how do I know that new game is clicked ???
+	#square box, ? click event 

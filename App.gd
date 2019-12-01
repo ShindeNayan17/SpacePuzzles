@@ -1,5 +1,5 @@
 extends Node2D
 
 func _ready():
-	global.new_game();
+	global.load_menu();
 	pass

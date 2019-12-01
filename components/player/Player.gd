@@ -20,6 +20,7 @@ var bounceNormal = Vector2();
 var mousePosition = Vector2();
 var playerAngle = 0;
 var lineCollidingPointNormal = Vector2();
+var playedDead = false;
 func _ready():
 	screensize = get_viewport_rect().size;
 	resetPlayer();
@@ -194,8 +195,26 @@ func take_damage(damage):
 		_on_Player_player_killed();
 
 func _on_Player_player_killed():
+#	emit_signal("restart_level", "Player", "restartLevel");
+	print("killed");
+	if !playedDead:
+		$blast.show();
+		playedDead = true;
+		$playerKilled.play();
+		
 	# self.queue_free();
+#	$kill_effects.start();
+	pass # Replace with function body.
+
+func _on_kill_effects_tween_completed(object, key):
+#	emit_signal("restart_level", "Player", "restartLevel");
 	
+	pass # Replace with function body.
+
+
+func _on_playerKilled_finished():
+	print("audio complete");
 	
 	emit_signal("restart_level", "Player", "restartLevel");
+	
 	pass # Replace with function body.

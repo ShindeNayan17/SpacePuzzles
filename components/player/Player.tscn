@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://components/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://components/loading_modal/Loading.tscn" type="PackedScene" id=2]
+[ext_resource path="res://audio/laser2.wav" type="AudioStream" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -9,6 +10,10 @@ load_path = "res://.import/shipGreen_manned.png-1eea8fad7351c37f78443051215d0778
 
 [sub_resource type="CapsuleShape2D" id=2]
 height = 30.0
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/laserGreen_burst.png-03ae1ed3f6e536ac45ea49a550e78f9f.stex"
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 3
@@ -41,6 +46,16 @@ collide_with_areas = true
 [node name="Loading" parent="." instance=ExtResource( 2 )]
 visible = false
 
-[node name="LazerGun" type="Sprite" parent="."]
+[node name="playerKilled" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="kill_effects" type="Tween" parent="."]
+playback_process_mode = 0
+
+[node name="blast" type="Sprite" parent="."]
 visible = false
+scale = Vector2( 0.5, 0.5 )
+texture = SubResource( 3 )
 [connection signal="player_killed" from="." to="." method="_on_Player_player_killed"]
+[connection signal="finished" from="playerKilled" to="." method="_on_playerKilled_finished"]
+[connection signal="tween_completed" from="kill_effects" to="." method="_on_kill_effects_tween_completed"]

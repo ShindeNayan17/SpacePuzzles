@@ -6,7 +6,7 @@ extends "res://components/level_handler/levelAssets.gd"
 const blockWidth = 64;
 const blockHeight = 64;
 const blk = ["blank" ,0,"left"]; # type, length, direction (top, down, left, right)
-const wall = ["wallAnimated" ,1,"left", false, 1]; # type, length, direction (top, down, left, right)
+const wall = ["wpallAnimated" ,1,"left", false, 1]; # type, length, direction (top, down, left, right)
 const doorStartTop = ["doorVertical" ,2,"start", "top"];
 const doorStartBottom = ["doorVertical" ,2,"start", "bottom"];
 const doorEndTop = ["doorVertical",2, "end" ,"top"];
@@ -133,7 +133,6 @@ func addMovingEntities(level_node):
 				block.position = Vector2(xOffset, yOffset) + offset;
 				block.connect("portalEntered", level_node, "handleLevelEvents");
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
-				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 			
@@ -144,7 +143,6 @@ func addMovingEntities(level_node):
 				block.position = Vector2(xOffset, yOffset) + offset;
 				block.connect("portalEntered", level_node, "handleLevelEvents");
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
-				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 				

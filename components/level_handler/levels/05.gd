@@ -133,7 +133,6 @@ func addMovingEntities(level_node):
 				block.position = Vector2(xOffset, yOffset) + offset;
 				block.connect("portalEntered", level_node, "handleLevelEvents");
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
-				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 			
@@ -144,7 +143,6 @@ func addMovingEntities(level_node):
 				block.position = Vector2(xOffset, yOffset) + offset;
 				block.connect("portalEntered", level_node, "handleLevelEvents");
 				level_node.connect("levelSignal", block, "_on_Portal_body_received");
-				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
 				

@@ -8,9 +8,9 @@ var bonus_message #dictionary of bonus messages
 const PLAYER_DEFAULT_LIVES = 5;
 
 var player_init_position = Vector2(100,760);
-const TOTAL_LEVEL = "03"
+const TOTAL_LEVEL = "08"
 
-var current_level = "02";
+var current_level = "06";
 
 var level_pause = false;
 #constants

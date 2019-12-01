@@ -5,14 +5,6 @@ func _ready():
 	$Timer.connect("timeout",self,"_on_timer_timeout") 
 
 var disabled = false;
-func _physics_process(delta):
-	print("$Timer.time_left", $Timer.time_left);
-#	if counter >0:
-#		disabled = true;
-#		print("counter", counter);
-#		counter -= delta;
-#	else:
-#		disabled = false;
 func getPositionOffset(dir):
 	var positionOffset = Vector2(0,0);
 	var portalSprite = $"PortalSprite";

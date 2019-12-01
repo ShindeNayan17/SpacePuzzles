@@ -1,6 +1,6 @@
 extends Node
 
-var score # score of the current game
+var score = 0; # score of the current game
 var brick_texture #array of brick textures 
 var bonus_texture #dictionary of bonus textures
 var bonus_effect #dictionary of bonus effects
@@ -10,7 +10,7 @@ const PLAYER_DEFAULT_LIVES = 5;
 var player_init_position = Vector2(100,760);
 const TOTAL_LEVEL = "08"
 
-var current_level = "06";
+var current_level = "01";
 
 var level_pause = false;
 #constants

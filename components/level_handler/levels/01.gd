@@ -20,6 +20,10 @@ const portalStartR = ["Portal_p" ,1, "right"];
 const portalEndR = ["Portal_g" ,1, "right"];
 const playerInstance = ["player" ,1];
 const instructions = ["instruction" ,1];
+const gemBlue = ["gems" ,1, "blue" ];
+const gemGreen = ["gems" ,1, "green" ];
+const gemRed = ["gems" ,1, "red" ];
+const gemYellow = ["gems" ,1, "yellow" ];
 
 
 const v = {
@@ -35,7 +39,13 @@ const v = {
 	7: portalStartL,
 	8: portalEndL,
 	9: portalStartR,
-	10: portalEndR
+	10: portalEndR,
+	20: gemBlue,
+	21: gemGreen,
+	22: gemRed,
+	23: gemYellow,
+	
+	
 }
 
 func addMovingEntities(level_node):
@@ -198,12 +208,12 @@ func init_level(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[23], v[0], v[0], v[0], v[0], v[0], v[22], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[21], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[20], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -287,6 +297,15 @@ func init_level(level_node):
 #				print("x, yoffset ", xOffset, yOffset );
 				block.position = Vector2(xOffset, yOffset)
 				#print("block pos", block.position, xOffset, yOffset);
+				level_node.add_child(block);
+				pass;
+
+			if aBlock[0] == "gems":
+				var block = gems.instance();
+				var noOfBlocks = aBlock[1];
+				var color = aBlock[2];
+				block.set_color(color);
+				block.position = Vector2(xOffset, yOffset)
 				level_node.add_child(block);
 				pass;
 			

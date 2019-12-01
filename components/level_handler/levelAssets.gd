@@ -12,7 +12,8 @@ var portal_p;
 var portal_g;
 var bgAnimated;
 var level_instructions;
-var wallBouncy
+var wallBouncy;
+var gems;
 #var level01 = preload("res://textures/levels/01.png");
 
 func _init():
@@ -26,7 +27,7 @@ func _init():
 	portal_g = load ("res://components/portal_g/Portal_g.tscn");
 	bgAnimated = load ("res://components/bg_animated/BgAnimated.tscn");
 	level_instructions = load ("res://components/level_instructions/Instructions.tscn");
-
+	gems = load("res://components/gems/Gems.tscn");
 
 
 func init_level(level_node):

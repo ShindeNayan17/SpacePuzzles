@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://components/gems/Gems.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 18.0
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/platformPack_item007.png-dc71b779f8723315291de3c6b9d5973e.stex"
+
+[sub_resource type="StreamTexture" id=5]
+flags = 4
+load_path = "res://.import/platformPack_item009.png-095917c9d37aa86cb34c6416768a033d.stex"
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/platformPack_item010.png-d11e9d236c60bfa5fc149d38238733a4.stex"
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/platformPack_item008.png-544e124002ebcd3a7433fa1c441cf808.stex"
+
+[node name="Gems" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )
+
+[node name="gemBlue" type="Sprite" parent="."]
+texture = SubResource( 4 )
+
+[node name="gemGreen" type="Sprite" parent="."]
+visible = false
+texture = SubResource( 5 )
+
+[node name="gemRed" type="Sprite" parent="."]
+visible = false
+texture = SubResource( 2 )
+
+[node name="gemYellow" type="Sprite" parent="."]
+visible = false
+texture = SubResource( 1 )
+
+[node name="effect" type="Tween" parent="."]
+[connection signal="body_entered" from="." to="." method="_on_Gems_body_entered"]
+[connection signal="tween_completed" from="effect" to="." method="_on_effect_tween_completed"]

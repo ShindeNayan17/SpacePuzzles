@@ -2,10 +2,10 @@ extends Node2D
 
 
 const level_01_msg = "1. The Basics"; 
-const level_02_msg = "2. More Spikes"; 
+const level_02_msg = "2. Getting On Track"; 
 const level_03_msg = "3. Another way"; 
-const level_04_msg = "4. The Basics"; 
-const level_05_msg = "5. The Basics"; 
+const level_04_msg = "4. One Step Ahead"; 
+const level_05_msg = "5. Towards End"; 
 
 func _ready():
 	

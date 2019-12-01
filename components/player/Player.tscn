@@ -9,7 +9,7 @@ flags = 4
 load_path = "res://.import/shipGreen_manned.png-1eea8fad7351c37f78443051215d0778.stex"
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 30 )
+extents = Vector2( 10, 20 )
 
 [sub_resource type="StreamTexture" id=3]
 flags = 4

@@ -10,7 +10,7 @@ const PLAYER_DEFAULT_LIVES = 5;
 var player_init_position = Vector2(100,760);
 const TOTAL_LEVEL = "05"
 
-var current_level = "05";
+var current_level = "01";
 
 var level_pause = false;
 #constants
@@ -45,8 +45,7 @@ func quit():
 	get_tree().quit()
 
 
-func getNextLevel():
-	var currentLevel = global.current_level;
+func getNextLevel(currentLevel):
 	var currentLevelNo = int(currentLevel);
 	var total = int(TOTAL_LEVEL);
 	if currentLevelNo < total :

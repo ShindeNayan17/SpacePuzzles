@@ -13,6 +13,19 @@ func handleLevelEvents(eventType, payload):
 	lb.handleEvents(self, eventType, payload);
 	pass;
 
+		
+func create_timer(level_node, wait_time):
+	var timer = Timer.new()
+	timer.set_wait_time(wait_time)
+	timer.set_one_shot(true)
+	timer.connect("timeout", timer, "queue_free")
+	level_node.add_child(timer)
+	timer.start()
+	return timer
+	pass
+
+
+
 func load_level(level):
 	global.level_pause = true;
 	var path = "res://components/level_handler/levels/"+str(level)+".gd";
@@ -26,7 +39,8 @@ func load_level(level):
 	
 
 func level_complete():
-	var nextLevel = global.getNextLevel();
+	var nextLevel = global.getNextLevel(global.current_level);
+	yield(create_timer(self, 2), "timeout")
 	if global.current_level == nextLevel:
 		#game complete
 		pass;

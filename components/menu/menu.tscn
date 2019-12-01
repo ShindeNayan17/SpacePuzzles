@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://components/menu/menu.gd" type="Script" id=1]
-[ext_resource path="res://textures/Backgrounds/purple.png" type="Texture" id=2]
+[ext_resource path="res://textures/Backgrounds/black.png" type="Texture" id=2]
 [ext_resource path="res://textures/font/menu.tres" type="DynamicFont" id=3]
 
 [node name="menu" type="Node"]

@@ -40,7 +40,7 @@ func load_level(level):
 
 func level_complete():
 	var nextLevel = global.getNextLevel(global.current_level);
-	yield(create_timer(self, 2), "timeout")
+	yield(create_timer(self, 5), "timeout")
 	if global.current_level == nextLevel:
 		#game complete
 		pass;

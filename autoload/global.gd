@@ -10,7 +10,7 @@ const PLAYER_DEFAULT_LIVES = 5;
 var player_init_position = Vector2(100,760);
 const TOTAL_LEVEL = "05"
 
-var current_level = "01";
+var current_level = "05";
 
 var level_pause = false;
 #constants
@@ -51,8 +51,6 @@ func getNextLevel(currentLevel):
 	if currentLevelNo < total :
 		currentLevelNo += 1;
 		currentLevel = "0" + str(currentLevelNo);
-	else: pass;
+	else:
+		global.load_menu();
 	return currentLevel;
-	
-	# how do I know that new game is clicked ???
-	#square box, ? click event 

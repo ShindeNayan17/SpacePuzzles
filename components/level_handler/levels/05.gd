@@ -428,14 +428,28 @@ func handleEvents(level_node, type, params):
 		if action == "restartLevel":
 			restart_level(level_node);
 		
+func create_timer(level_node, wait_time):
+	var timer = Timer.new()
+	timer.set_wait_time(wait_time)
+	timer.set_one_shot(true)
+	timer.connect("timeout", timer, "queue_free")
+	level_node.add_child(timer)
+	timer.start()
+	return timer
+	pass
+
 
 func restart_level(level_node):
-	
+	global.level_pause = true;
 	for i in range (level_node.get_child_count()):
 		var aChild = level_node.get_child(i);
 		if aChild.is_in_group("entities"):
-			aChild.queue_free();
+			if aChild.name == "Player":
+				aChild.resetPlayer();
+			else:
+				aChild.queue_free();
 		pass;
+	yield(create_timer(level_node, 2), "timeout")
 	addMovingEntities(level_node);
 	
 	pass;

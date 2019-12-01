@@ -26,6 +26,10 @@ const instructions = ["instruction" ,1];
 const wallB = ["wallBouncy" ,1,"left"];
 const wallRotating = ["wallAnimated" ,7,"left", true, PI/360]; # type, length, direction (top, down, left, right)
 const wallBRotating = ["wallBouncy" ,7,"left", true, PI/360]; # type, length, direction (top, down, left, right)
+const gemBlue = ["gems" ,1, "blue" ];
+const gemGreen = ["gems" ,1, "green" ];
+const gemRed = ["gems" ,1, "red" ];
+const gemYellow = ["gems" ,1, "yellow" ];
 
 const v = {
 	11:playerInstance,
@@ -46,7 +50,11 @@ const v = {
 	16: portalEndL,
 	17: portalEndR,
 	18: wallRotating,
-	19: wallBRotating
+	19: wallBRotating,
+	20: gemBlue,
+	21: gemGreen,
+	22: gemRed,
+	23: gemYellow,
 }
 
 func addMovingEntities(level_node):
@@ -169,52 +177,52 @@ func addMovingEntities(level_node):
 func init_level(level_node):
 	var vectorArray = [
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
- 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+ 	[v[1], v[0], v[0], v[20], v[20], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[16], v[0], v[0], v[0], v[0], v[0], v[4], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[5], v[0], v[1]],
+	[v[1], v[0], v[0], v[20], v[20], v[20], v[20], v[5], v[0], v[1]],
 	[v[1], v[1], v[1], v[0], v[0], v[1], v[1], v[1], v[1], v[1]],
 	[v[1], v[1], v[0], v[0], v[0], v[0], v[0], v[15], v[1], v[1]],
 	[v[1], v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[1]],
 	[v[1], v[1], v[0], v[0], v[0], v[1], v[1], v[1], v[1], v[1]],
-	[v[1], v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[1]],
+	[v[1], v[1], v[20], v[20], v[20], v[20], v[0], v[0], v[1], v[1]],
 	[v[1], v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[1]],
 	[v[1], v[6], v[0], v[0], v[0], v[0], v[0], v[0], v[6], v[1]],
-	[v[6], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[6]],
+	[v[6], v[20], v[21], v[22], v[23], v[22], v[21], v[20], v[0], v[6]],
+	[v[7], v[20], v[21], v[22], v[23], v[22], v[21], v[20], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
+	[v[7], v[20], v[21], v[22], v[23], v[22], v[21], v[20], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[1], v[1], v[1], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
+	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0],v[8]],
+	[v[7], v[20], v[21], v[22], v[23], v[22], v[21], v[20],v[0], v[8]],
+	[v[7], v[20], v[21], v[22], v[23], v[22], v[21], v[20],v[0], v[8]],
+	[v[7], v[20], v[21], v[22], v[23], v[22], v[21], v[20],v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[19], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
+	[v[7], v[20], v[21], v[22], v[23], v[22], v[21], v[20], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
+	[v[7], v[0], v[1], v[21], v[23], v[22], v[21], v[1], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[1], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[1], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
+	[v[7], v[0], v[0], v[0], v[1], v[22], v[0], v[1], v[0], v[8]],
+	[v[7], v[0], v[0], v[0], v[1], v[21], v[0], v[1], v[0], v[8]],
+	[v[7], v[0], v[0], v[0], v[1], v[20], v[0], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[1], v[0], v[0], v[1], v[0], v[8]],
+	[v[7], v[0], v[0], v[0], v[0], v[23], v[22], v[1], v[0], v[8]],
+	[v[7], v[0], v[0], v[0], v[0], v[23], v[22], v[1], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[1], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
-	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
+	[v[7], v[0], v[0], v[20], v[20], v[0], v[0], v[0], v[0], v[8]],
+	[v[7], v[0], v[0], v[20], v[20], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[2], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
 	[v[7], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[8]],
@@ -353,7 +361,14 @@ func init_level(level_node):
 				block.position = Vector2(xOffset, yOffset)
 				#print("block pos", block.position, xOffset, yOffset);
 				level_node.add_child(block);
-		
+			if aBlock[0] == "gems":
+				var block = gems.instance();
+				var noOfBlocks = aBlock[1];
+				var color = aBlock[2];
+				block.set_color(color);
+				block.position = Vector2(xOffset, yOffset)
+				level_node.add_child(block);
+				pass;
 		
 	self.addMovingEntities(level_node);
 #		

@@ -26,6 +26,10 @@ const instructions = ["instruction" ,1];
 const wallB = ["wallBouncy" ,1,"left"];
 const wallRotating = ["wallAnimated" ,7,"left", true, PI/360]; # type, length, direction (top, down, left, right)
 const wallBRotating = ["wallBouncy" ,7,"left", true, PI/360]; # type, length, direction (top, down, left, right)
+const gemBlue = ["gems" ,1, "blue" ];
+const gemGreen = ["gems" ,1, "green" ];
+const gemRed = ["gems" ,1, "red" ];
+const gemYellow = ["gems" ,1, "yellow" ];
 
 const v = {
 	11:playerInstance,
@@ -46,7 +50,11 @@ const v = {
 	16: portalEndL,
 	17: portalEndR,
 	18: wallRotating,
-	19: wallBRotating
+	19: wallBRotating,
+	20: gemBlue,
+	21: gemGreen,
+	22: gemRed,
+	23: gemYellow,
 }
 
 func addMovingEntities(level_node):
@@ -61,6 +69,7 @@ func addMovingEntities(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[20], v[20], v[21], v[22], v[23], v[22], v[21], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
@@ -75,33 +84,32 @@ func addMovingEntities(level_node):
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[20], v[20], v[21], v[22], v[23], v[22], v[21], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1],v[20], v[20], v[21], v[22], v[23], v[22], v[21], v[1]],
+	[v[1], v[20], v[20], v[21], v[22], v[23], v[22], v[21], v[0], v[1]],
+	[v[1], v[20], v[20], v[21], v[22], v[23], v[22], v[21], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[22], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[20], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[23], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[0], v[0], v[0], v[0], v[21], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[0], v[0], v[0], v[0], v[12], v[0], v[0], v[0], v[1]],
 	[v[1], v[2], v[11], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
-	[v[1], v[3], v[0], v[0], v[0], v[0], v[0], v[0], v[0], v[1]],
+	[v[1], v[3], v[20], v[20], v[20], v[0], v[0], v[0], v[0], v[1]],
 	[v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1], v[1]],
 	
 	]
@@ -160,6 +168,15 @@ func addMovingEntities(level_node):
 				block.add_to_group("entities");
 				level_node.add_child(block);
 				pass;
+			if aBlock[0] == "gems":
+				var block = gems.instance();
+				var noOfBlocks = aBlock[1];
+				var color = aBlock[2];
+				block.set_color(color);
+				block.position = Vector2(xOffset, yOffset)
+				level_node.add_child(block);
+				pass;
+		
 
 			
 		
